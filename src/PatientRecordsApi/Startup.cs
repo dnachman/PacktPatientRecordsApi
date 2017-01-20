@@ -30,6 +30,7 @@ namespace PatientRecordsApi
             }
 
             app.UseMvc();
+            app.UseStaticFiles();
         }
     }
 }

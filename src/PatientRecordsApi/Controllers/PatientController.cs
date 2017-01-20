@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PatientRecordsApi.Models;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,18 +12,48 @@ namespace PatientRecordsApi.Controllers
     [Route("api/[controller]")]
     public class PatientController : Controller
     {
+        Patient[] patients = new Patient[]
+        {
+            new Patient
+            {
+                Id = 1,
+                FirstName = "John",
+                LastName = "Smith",
+                SocialSecurityNumber = "123550012"
+            },
+            new Patient
+            {
+                Id = 2,
+                FirstName = "Jane",
+                LastName = "Doe",
+                SocialSecurityNumber = "123550013"
+            },
+            new Patient
+            {
+                Id = 3,
+                FirstName = "Sally",
+                LastName = "Smith",
+                SocialSecurityNumber = "123550014"
+            }
+        };
+
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Patient> Get()
         {
-            return new string[] { "value1", "value2" };
+            return patients;
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Patient Get(int id)
         {
-            return "value";
+            var patient = patients.FirstOrDefault((p) => p.Id == id);
+            if (patient == null)
+            {
+                return null;
+            }
+            return patient;
         }
 
         // POST api/values
