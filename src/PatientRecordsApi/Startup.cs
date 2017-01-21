@@ -17,6 +17,7 @@ namespace PatientRecordsApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvcCore().AddJsonFormatters();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,8 +30,10 @@ namespace PatientRecordsApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(builder => builder.WithOrigins("*"));
             app.UseMvc();
             app.UseStaticFiles();
+            
         }
     }
 }
